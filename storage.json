@@ -1,20 +1,26 @@
 [
   {
-    "name": "яблоки",
-    "amount": "2",
-    "category": "фрукты",
+    "name": "fh,ep",
+    "amount": 1,
+    "category": "фрукт",
     "expiry_date": "20.09.2025"
   },
   {
-    "name": "яблоки",
-    "amount": "5",
-    "category": "фрукты",
-    "expiry_date": "27.09.2025"
+    "name": "банан",
+    "amount": 1,
+    "category": "фрукт",
+    "expiry_date": "20.09.2025"
   },
   {
-    "name": "яблоки",
-    "amount": "2",
-    "category": "фрукты",
-    "expiry_date": "12.06.2025"
+    "name": "дыня",
+    "amount": 2,
+    "category": "фрукт",
+    "expiry_date": "20.09.2025"
+  },
+  {
+    "name": "дыня",
+    "amount": 1,
+    "category": "фрукт",
+    "expiry_date": "20.09.2025"
   }
 ]

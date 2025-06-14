@@ -1,10 +1,12 @@
-from parts import Fridge, Product
+
+from parts import Fridge, Product, ProductValidator
 
 
 def main():
     fridge = Fridge()
 
     while True:
+        print("\nМеню холодильника:")
         print("1. Добавить продукт")
         print("2. Удалить продукт")
         print("3. Показать все продукты")
@@ -12,42 +14,81 @@ def main():
         print("5. Показать просроченные продукты")
         print("6. Выход")
 
-        choice = input("Выберите действие: ")
+        choice = input("Выберите действие: ").strip()
 
         if choice == "1":
-            name = input("Название: ")
-            category = input("Категория: ")
-            amount = input("Количество: ")
-            expiry_date = input("Годен до (дд.мм.гггг): ")
-            fridge.add_product(Product(name, amount, category, expiry_date))
-            print(f'Продукт {name} добавлен!')
+            while True:
+                try:
+                    name = ProductValidator.validate_name(
+                        input("Название: ").strip()
+                    )
+                    category = ProductValidator.validate_category(
+                        input("Категория: ").strip()
+                    )
+                    amount = ProductValidator.validate_amount(
+                        input("Количество: ").strip()
+                    )
+                    expiry_date = ProductValidator.validate_date(
+                        input("Годен до (дд.мм.гггг): ").strip()
+                    )
 
-        if choice == "2":
-            name = input("Введите название продукта для удаления: ").strip()
-            expiry_date = input("Введите срок годности продукта (дд.мм.гггг): ").strip()
-            fridge.delet_product(name, expiry_date)
-            print(f'Продукт {name} удален!')
+                    product = Product(name, amount, category, expiry_date)
+                    fridge.add_product(product)
+                    print(f'Продукт "{name}" добавлен!')
+                    break
+                except ValueError as e:
+                    print(f"Ошибка ввода: {e}")
+                except Exception as e:
+                    print(f"Неожиданная ошибка: {e}")
 
-        if choice == "3":
-            print(fridge.show_all_product())
+        elif choice == "2":
+            while True:
+                try:
+                    name = ProductValidator.validate_name(
+                        input("Название: ").strip()
+                    )
+                    expiry_date = ProductValidator.validate_date(
+                        input("Годен до (дд.мм.гггг): ").strip()
+                    )
+                    if fridge.delete_product(name, expiry_date):
+                        break
+                    else:
+                        print("Продукт не найден. Попробуйте снова.")
+                except ValueError as e:
+                    print(f"Ошибка ввода: {e}")
+                except Exception as e:
+                    print(f"Неожиданная ошибка: {e}")
+
+        elif choice == "3":
+            fridge.show_all_products()
+
+        elif choice == "4":
+            while True:
+                try:
+                    name = ProductValidator.validate_name(
+                        input("Название: ").strip()
+                    )
+                    fridge.show_product_amount(name)
+                    break
+                except Exception as e:
+                    print(f"Ошибка: {e}")
             break
 
-        if choice == "4":
-            name = input("Введите название продукта: ").strip()
-            fridge.show_product_amount(name)
-            break
-
-        if choice == "5":
-            expired = fridge.show_expiry_product()
+        elif choice == "5":
+            expired = fridge.show_expired_products()
             if expired:
                 for p in expired:
                     print(f"Просроченные продукты: {str.upper(p.name)} (до {p.expiry_date})")
             else:
-                print("Просрочки нет!")
+                print("Просроченных продуктов нет!")
             break
 
-        if choice == "6":
+        elif choice == "6":
+            print("Выход из программы...")
             break
+
+        else:
+            print("Некорректный выбор. Пожалуйста, введите число от 1 до 6.")
 
 
 if __name__ == '__main__':
