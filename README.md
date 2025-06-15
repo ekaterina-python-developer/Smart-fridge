@@ -17,13 +17,8 @@
 
 1. Клонируйте репозиторий:
 
-git clone https://github.com/ваш-репозиторий/fridge-manager.git
-cd fridge-manager
-(Опционально) Создайте виртуальное окружение:
-
-python -m venv venv
-source venv/bin/activate  # Linux/MacOS
-venv\Scripts\activate     # Windows
+- git clone
+- cd fridge-manager
 
 2. Запустите приложение:
 
